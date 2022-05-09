@@ -1,0 +1,67 @@
+@import '~normalize.css';
+@import 'roboto.css';
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.keyboard {
+    width: 1000px;
+    display: flex;
+    flex-direction: column;
+    /* grid-template-columns: repeat(15, 1fr); */
+    gap: 15px;
+    margin: 0 auto;
+}
+
+.keyboard-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.keys-elem {
+    width: 55px;
+    height: 55px;
+    border-radius: 5px;
+    background: #3f5262;
+    color: #fff;
+}
+
+.keys-elem.Backspace {
+    width: 135px;
+}
+
+.keys-elem.Tab {
+    width: 70px;
+}
+
+.keys-elem.CapsLock, .keys-elem.ShiftLeft {
+    width: 145px;
+}
+
+.keys-elem.Enter {
+    width: 122px;
+}
+
+.keys-elem.ControlLeft {
+    width: 85px;
+}
+
+.keys-elem.ControlRight {
+    width: 95px;
+}
+
+.keys-elem.Space {
+    width: 420px;
+}
+
+h1 {
+    text-align: center;
+    color: red;
+}
+
