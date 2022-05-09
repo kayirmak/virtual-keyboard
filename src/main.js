@@ -1,16 +1,5 @@
 import './styles/styles.css';
-// import db from './assets/json';
-// import webpackLogo from './assets/img.png'
 
-// console.log(db);
-// console.log(webpackLogo);
-
-// let img = document.querySelector('.container')
-// let el = document.createElement('img')
-// el.setAttribute('src', './Vue.png')
-// img.append(el)
-
-// let k = ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'Backspace', 'Tab', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'BracketLeft', 'BracketRight', 'Backslash', 'Delete', 'CapsLock', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'Enter', 'ShiftLeft', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'ArrowUp', 'ShiftRight', 'ControlLeft', 'MetaLeft', 'AltLeft', 'Space', 'AltRight', 'ControlRight', 'ArrowLeft', 'ArrowDown', 'ArrowRight']
 let keys = [
     [
         {isTrusted: true, code: 'Backquote', key: '`', keyCode: 192, which: 192},
@@ -89,33 +78,129 @@ let keys = [
     ]
 ]
 
+let container = document.querySelector('.container')
+let keyboard = document.createElement('div')
+let textarea = document.createElement('textarea')
+
 function upFirst(str) {
     if (!str) return str
 
-    return str[0].toUpperCase() + str.slice(1)
+    return str.toLowerCase()
 }
 
-let container = document.querySelector('.container')
-let keyboard = document.createElement('div')
+
 keyboard.classList.add('keyboard')
-container.append(keyboard)
+textarea.classList.add('textarea')
+container.append(textarea, keyboard)
+
 for (let i = 0; i < keys.length; i++) {
     let keyboardRow = document.createElement('div')
     keyboardRow.classList.add('keyboard-row', `keyboard-row-${i}`)
+
     for (let j = 0; j < keys[i].length; j++) { 
+        let elemKey = keys[i][j]
 
         let out = document.createElement('div')
-        out.classList.add('keys-elem', keys[i][j].code)
-        out.textContent += upFirst(keys[i][j].key)
+        out.classList.add('keys-elem', elemKey.code)
+        out.setAttribute('val', elemKey.code)
+        out.innerHTML += `<h4>${upFirst(elemKey.key)}</h4>`
         keyboardRow.append(out)
+        
+        if (elemKey.code !== `Key${elemKey.key.toUpperCase()}` && elemKey.code !== `Digit${elemKey.key.toUpperCase()}`) {
+            out.classList.add('dark-bgcolor')
+        }
         
     }
     keyboard.append(keyboardRow)
     
 }
 
+let textForArea = document.getElementsByTagName('textarea')[0]
 
-document.addEventListener('keydown', function(event) {
-    keys.push(event)
-    console.log(keys);
-})
+
+function clickOnVK(event) {
+    let target = event.target.closest('.keys-elem')
+    // console.log(target.firstChild);
+    if (!keysSwitch(target.getAttribute('val'))) {
+        textForArea.value += target.firstChild.textContent
+    }
+    textForArea.focus()
+    
+    if (target.getAttribute('val')) {
+        setColor(target.getAttribute('val'))
+    }
+    setTimeout(() => {
+        removeColor(target.getAttribute('val'))
+    }, 100)
+}
+
+function setColor(event) {
+    let elemKey = keyboard.querySelectorAll('.keys-elem')
+    elemKey.forEach(el => {
+        if (event === el.getAttribute('val')) {
+            el.classList.add('bgcolor-active')
+        }
+    })
+}
+
+function removeColor(event) {
+    let elemKey = keyboard.querySelectorAll('.keys-elem')
+    elemKey.forEach(el => {
+        if (event === el.getAttribute('val')) {
+            el.classList.remove('bgcolor-active')
+        }
+    })
+}
+
+
+
+function keyPress(event) {
+    let elemKey = keyboard.querySelectorAll('.keys-elem')
+    elemKey.forEach(el => {
+        // console.log(el.getAttribute('val'));
+        if (event.code === el.getAttribute('val')) {
+            el.classList.add('bgcolor-active')
+        }
+    })
+}
+
+function keyUp(event) {
+    let elemKey = keyboard.querySelectorAll('.keys-elem')
+    elemKey.forEach(el => {
+        if (event.code === el.getAttribute('val')) {
+            el.classList.remove('bgcolor-active')
+        }
+    })
+}
+
+function capsLock() { 
+    let elemKey = keyboard.querySelectorAll('.keys-elem')
+
+    elemKey.forEach(el => {
+        if (el.firstChild.textContent === el.firstChild.textContent.toLowerCase()) {
+            el.firstChild.textContent = el.firstChild.textContent.toUpperCase()
+        }
+        else {
+            el.firstChild.textContent = el.firstChild.textContent.toLowerCase()
+        }        
+    })
+    
+    return true
+}
+
+function keysSwitch(code) {
+    switch (code) {
+        case 'CapsLock': return capsLock()
+    
+        default:
+            break;
+    }
+}
+
+
+
+
+keyboard.addEventListener('click', clickOnVK)
+
+document.addEventListener('keydown', keyPress)
+document.addEventListener('keyup', keyUp)

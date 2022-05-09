@@ -10,6 +10,14 @@ body {
     margin: 0 auto;
 }
 
+.textarea {
+    display: block;
+    margin: 0 auto 20px;
+    width: 1000px;
+    height: 150px;
+
+}
+
 .keyboard {
     width: 1000px;
     display: flex;
@@ -30,6 +38,20 @@ body {
     border-radius: 5px;
     background: #3f5262;
     color: #fff;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.toUpperCase {
+    text-transform: uppercase;
+}
+
+.dark-bgcolor {
+    background: #1f2c36;
+}
+
+.bgcolor-active {
+    background: #1483d8;
 }
 
 .keys-elem.Backspace {
