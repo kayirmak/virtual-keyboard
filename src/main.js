@@ -214,9 +214,8 @@ let textForArea = document.getElementsByTagName('textarea')[0]
 
 function clickOnVK(event) {
     let target = event.target.closest('.keys-elem')
-    // console.log(event.target);
+    
     if (!keysSwitch(event, target.getAttribute('val'))) {
-        // console.log(!keysSwitch(event, target.getAttribute('val')));
         textForArea.value += target.firstChild.textContent
     }
     textForArea.focus()
@@ -278,7 +277,6 @@ function changeLang() {
 }
 
 
-let tmp = []
 function keyPress(event) {
     let elemKey = keyboard.querySelectorAll('.keys-elem')
     console.log(event);
@@ -322,7 +320,6 @@ function changeLangOnVK(event) {
         stack.push(target.getAttribute('val'))
         return true
     }
-    // console.log(!!stack.length, stack);
     if (stack.length && target.getAttribute('val') === "ShiftRight" || stack.length && target.getAttribute('val') === "ShiftLeft") {
         changeLang()
         stack.pop()
@@ -361,17 +358,6 @@ function enter() {
 
 
 function arrow(key) {
-    // let i = 0
-    // // textForArea.selectionStart = textForArea.selectionStart
-    
-    // let text = textForArea.value.split('')
-    // let idxText = text.findIndex(el => el == '\n')
-    // text.forEach((el) => {
-    //     if (el == '\n') {
-    //         idxEnter++
-    //     }
-    // })
-
     switch (key) {
         case 'left':
             textForArea.selectionStart = textForArea.selectionStart - 1
@@ -382,35 +368,6 @@ function arrow(key) {
             textForArea.selectionStart = textForArea.selectionStart + 1
             return true;
 
-        // case 'down':
-            
-
-        //     while (i < idxEnter) {
-        //         textForArea.selectionStart = idxText + i
-        //         i++              
-        //     }
-            
-            
-        //     console.log(idxText);
-        //     // textForArea.selectionEnd = '\n' + 1
-        //     return true;
-
-        // case 'up':
-        //     // text.forEach((el) => {
-        //     //     if (el == '\n') {
-        //     //         idxEnter++
-        //     //     }
-        //     // })
-
-        //     while (i < idxEnter) {
-        //         textForArea.selectionStart = idxText - i
-        //         i++
-        //     }
-            
-            
-        //     console.log(idxText);
-        //     // textForArea.selectionEnd = '\n' + 1
-        //     return true;
         default:
             break;
     }
@@ -444,12 +401,6 @@ function keysSwitch(event, code) {
             break;
     }
 }
-
-
-
-// textForArea.addEventListener('input', function (event) {
-//     console.log(event);
-// })
 
 keyboard.addEventListener('click', clickOnVK)
 
