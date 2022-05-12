@@ -1,0 +1,29 @@
+{
+  "name": "webpack-example",
+  "version": "1.0.0",
+  "description": "for-learning",
+  "private": true,
+  "scripts": {
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production",
+    "watch": "webpack --mode development --watch"
+  },
+  "keywords": [
+    "js",
+    "webpack"
+  ],
+  "author": "Kairat",
+  "license": "ISC",
+  "devDependencies": {
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^3.4.2",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "style-loader": "^1.1.2",
+    "webpack": "^5.72.0",
+    "webpack-cli": "^4.9.2"
+  },
+  "dependencies": {
+    "normalize.css": "^8.0.1"
+  }
+}
